@@ -7,11 +7,11 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/17.0.0-20230710-release/Clang-17.0.0-20230710.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231004-release/Clang-18.0.0-20231004.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/AMWolfstein/kernel_xiaomi_Vantom.git"
+KERNEL_GIT="http://github.com/vantoman/kernel_xiaomi_sm6150.git"
 KERNEL_BRANCHE="13"
 KERNEL_DIR="$WORKDIR/VantomDynamicKernel"
 
@@ -139,8 +139,8 @@ echo "
 2. **Device Code** : $DEVICES_CODE
 3. **LINUX Version** : $KERNEL_VERSION
 4. **KERNELSU Version**: $KERNELSU_VERSION
-5. **CLANG Version**: ZyC clang version 17.0.0
-6. **LLD Version**: LLD 17.0.0
+5. **CLANG Version**: ZyC clang version 18.0.0
+6. **LLD Version**: LLD 18.0.0
 " > telegram_message.txt
 echo "VantomDynamicKernel-$KERNEL_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
