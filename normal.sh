@@ -11,9 +11,9 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/vantoman/kernel_xiaomi_sm6150.git"
-KERNEL_BRANCHE="13"
-KERNEL_DIR="$WORKDIR/VantomDynamicKernel"
+KERNEL_GIT="https://github.com/LenaTDDS/vantomsyndra.git"
+KERNEL_BRANCHE="kenvyra-13.0"
+KERNEL_DIR="$WORKDIR/VantomSyndraKernel"
 
 
 # Anykernel3
@@ -97,9 +97,9 @@ cp $DTB $WORKDIR/Anykernel3/dtb
 cp $DTBO .
 
 # PACK FILE
-time=$(TZ='Africa/Cairo' date +"%Y-%m-%d %H:%M:%S")
-cairo_time=$(TZ='Africa/Cairo' date +%Y%m%d%H)
-ZIP_NAME="VantomDynamicKernel-$KERNEL_VERSION.zip"
+time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
+cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
+ZIP_NAME="VantomSyndraKernel-$KERNEL_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
