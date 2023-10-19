@@ -7,7 +7,7 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231004-release/Clang-18.0.0-20231004.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231017-release/Clang-18.0.0-20231017.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -28,7 +28,7 @@ IMAGE="$KERNEL_DIR/out/arch/arm64/boot/Image.gz"
 DTB="$KERNEL_DIR/out/arch/arm64/boot/dtb.img"
 DTBO="$KERNEL_DIR/out/arch/arm64/boot/dtbo.img"
 
-export KBUILD_BUILD_USER=AMWolfstein
+export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
 
 msg() {
@@ -97,8 +97,8 @@ cp $DTB $WORKDIR/Anykernel3/dtb
 cp $DTBO .
 
 # PACK FILE
-time=$(TZ='Africa/Cairo' date +"%Y-%m-%d %H:%M:%S")
-cairo_time=$(TZ='Africa/Cairo' date +%Y%m%d%H)
+time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
+cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
 ZIP_NAME="VantomDynamicKernel-$KERNEL_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *

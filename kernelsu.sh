@@ -7,7 +7,7 @@
 WORKDIR="$(pwd)"
 
 # ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231004-release/Clang-18.0.0-20231004.tar.gz"
+ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231017-release/Clang-18.0.0-20231017.tar.gz"
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
@@ -27,7 +27,7 @@ IMAGE="$KERNEL_DIR/out/arch/arm64/boot/Image.gz"
 DTB="$KERNEL_DIR/out/arch/arm64/boot/dtb.img"
 DTBO="$KERNEL_DIR/out/arch/arm64/boot/dtbo.img"
 
-export KBUILD_BUILD_USER=AMWolfstein
+export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
 
 msg() {
@@ -116,9 +116,9 @@ cp $DTB $WORKDIR/Anykernel3/dtb
 cp $DTBO .
 
 # PACK FILE
-time=$(TZ='Africa/Cairo' date +"%Y-%m-%d %H:%M:%S")
-cairo_time=$(TZ='Africa/Cairo' date +%Y%m%d%H)
-ZIP_NAME="VantomDynamicKernel-$KERNEL_VERSION-KernelSU-$KERNELSU_VERSION.zip"
+time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
+cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
+ZIP_NAME="VantomKernel-$KERNEL_VERSION-KernelSU-$KERNELSU_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
@@ -126,7 +126,7 @@ mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 cd $WORKDIR/out
 echo "
 ### VantomDynamic KERNEL With/Without KERNELSU
-1. **Time** : $(TZ='Africa/Cairo' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
+1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
 2. **Device Code** : $DEVICES_CODE
 3. **LINUX Version** : $KERNEL_VERSION
 4. **KERNELSU Version**: $KERNELSU_VERSION
@@ -135,14 +135,14 @@ echo "
 " > RELEASE.md
 echo "
 ### VantomDynamic KERNEL With/Without KERNELSU
-1. **Time** : $(TZ='Africa/Cairo' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
+1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
 2. **Device Code** : $DEVICES_CODE
 3. **LINUX Version** : $KERNEL_VERSION
 4. **KERNELSU Version**: $KERNELSU_VERSION
 5. **CLANG Version**: ZyC clang version 18.0.0
 6. **LLD Version**: LLD 18.0.0
 " > telegram_message.txt
-echo "VantomDynamicKernel-$KERNEL_VERSION" > RELEASETITLE.txt
+echo "VantomKernel-$KERNEL_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
 cat telegram_message.txt
 cat RELEASETITLE.txt
