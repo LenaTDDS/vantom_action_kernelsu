@@ -17,7 +17,7 @@ KERNEL_DIR="$WORKDIR/VantomDynamicKernel"
 
 
 # Anykernel3
-ANYKERNEL3_GIT="https://github.com/AMWolfstein/AnyKernel3.git"
+ANYKERNEL3_GIT="https://github.com/LenaTDDS/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
 # Build

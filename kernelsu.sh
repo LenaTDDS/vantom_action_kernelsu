@@ -16,7 +16,7 @@ KERNEL_BRANCHE="13"
 KERNEL_DIR="$WORKDIR/VantomDynamicKernel"
 
 # Anykernel3
-ANYKERNEL3_GIT="https://github.com/AMWolfstein/AnyKernel3.git"
+ANYKERNEL3_GIT="https://github.com/LenaTDDS/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
 # Build
@@ -126,7 +126,7 @@ mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 cd $WORKDIR/out
 echo "
 ### VantomDynamic KERNEL With/Without KERNELSU
-1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
+1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Moscow TIME
 2. **Device Code** : $DEVICES_CODE
 3. **LINUX Version** : $KERNEL_VERSION
 4. **KERNELSU Version**: $KERNELSU_VERSION
@@ -134,16 +134,7 @@ echo "
 6. **LLD Version**: $LLD_VERSION
 " > RELEASE.md
 echo "
-### VantomDynamic KERNEL With/Without KERNELSU
-1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Cario TIME
-2. **Device Code** : $DEVICES_CODE
-3. **LINUX Version** : $KERNEL_VERSION
-4. **KERNELSU Version**: $KERNELSU_VERSION
-5. **CLANG Version**: ZyC clang version 18.0.0
-6. **LLD Version**: LLD 18.0.0
-" > telegram_message.txt
 echo "VantomKernel-$KERNEL_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
-cat telegram_message.txt
 cat RELEASETITLE.txt
 msg "• 🌸 Done! 🌸 "
