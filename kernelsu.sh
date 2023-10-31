@@ -59,8 +59,9 @@ msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
+export LTO=full 
 export BUILD_AOSP_KERNEL=1 
-./build_slider.sh 
+./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd $WORKDIR
