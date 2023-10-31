@@ -6,20 +6,15 @@
 
 WORKDIR="$(pwd)"
 
-# ZyClang
-ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231017-release/Clang-18.0.0-20231017.tar.gz"
-ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
-
 # Kernel Source
 KERNEL_GIT="https://github.com/GrapheneOS/kernel_manifest-raviole.git"
 KERNEL_BRANCH="14"
-KERNEL_DIR="$WORKDIR/GrapheneOSKernel"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
-IMAGE="$KERNEL_DIR/out/mixed/dist/boot.img"
+OUT_PATH="$KERNEL_DIR/out/mixed/dist"
 
 export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
@@ -32,21 +27,11 @@ msg() {
 
 cd $WORKDIR
 
-# Download ZyClang
-msg " • 🌸 Work on $WORKDIR 🌸"
-msg " • 🌸 Cloning Toolchain 🌸 "
-mkdir -p ZyClang
-aria2c -s16 -x16 -k1M $ZYCLANG_DLINK -o ZyClang.tar.gz
-tar -C ZyClang/ -zxvf ZyClang.tar.gz
-rm -rf ZyClang.tar.gz
-
-# CLANG LLVM VERSIONS
-CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
-LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
-
 msg " • 🌸 Cloning Kernel Source 🌸 "
 repo init -u $KERNEL_GIT -b $KERNEL_BRANCH 
 repo sync -j$(nproc --all)
+# This is test
+ls -la
 
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
@@ -61,14 +46,13 @@ export BUILD_AOSP_KERNEL=1
 ./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
-cd $WORKDIR
 git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCHE $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
-cp $IMAGE .
+cp $IMAGE/* .
 
 # PACK FILE
 time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
-cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
+moscow_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
 ZIP_NAME="GrapheneOS-Kernel-KSU-$KERNELSU_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
