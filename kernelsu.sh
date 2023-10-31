@@ -57,7 +57,7 @@ msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
-BUILD_KERNEL=1 ./build_slider.sh
+./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd $WORKDIR
