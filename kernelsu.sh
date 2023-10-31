@@ -56,3 +56,42 @@ cd $KERNEL_DIR
 ls -la $KERNEL_DIR
 ls -la
 
+msg " • 🌸 Patching KernelSU 🌸 "
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
+KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
+msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
+
+# BUILD KERNEL
+msg " • 🌸 Started Compilation 🌸 "
+export LTO=full 
+export BUILD_AOSP_KERNEL=1 
+./build_slider.sh
+
+msg " • 🌸 Packing Kernel 🌸 "
+cd $WORKDIR
+git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCHE $WORKDIR/Anykernel3
+cd $WORKDIR/Anykernel3
+cp $IMAGE .
+
+# PACK FILE
+time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
+cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
+ZIP_NAME="GrapheneOS-Kernel-KSU-$KERNELSU_VERSION.zip"
+find ./ * -exec touch -m -d "$time" {} \;
+zip -r9 $ZIP_NAME *
+mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
+
+cd $WORKDIR/out
+echo "
+### GrapheneOS KERNEL With KERNELSU
+1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Moscow TIME
+2. **KERNELSU Version**: $KERNELSU_VERSION
+3. **CLANG Version**: $CLANG_VERSION
+4. **LLD Version**: $LLD_VERSION
+" > RELEASE.md
+echo "
+echo "GrapheneOS-Kernel-KSU" > RELEASETITLE.txt
+cat RELEASE.md
+cat RELEASETITLE.txt
+msg "• 🌸 Done! 🌸 "
