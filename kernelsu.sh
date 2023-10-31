@@ -11,7 +11,7 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/LenaTDDS/kernel_gs.git"
+KERNEL_GIT="https://github.com/GrapheneOS/kernel_manifest-raviole"
 KERNEL_BRANCHE="14"
 KERNEL_DIR="$WORKDIR/GrapheneOSKernel"
 
