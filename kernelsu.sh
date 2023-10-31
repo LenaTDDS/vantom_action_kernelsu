@@ -53,6 +53,8 @@ repo sync -j$(nproc --all)
 git clone --depth=1 $KERNEL_GS -b $KERNEL_GS_BRANCH $KERNEL_DIR
 # git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
+ls -la $KERNEL_DIR
+ls -la
 
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
