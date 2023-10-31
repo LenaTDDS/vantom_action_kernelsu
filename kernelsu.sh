@@ -12,7 +12,7 @@ ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
 KERNEL_GIT="https://github.com/GrapheneOS/kernel_manifest-raviole"
-KERNEL_BRANCHE="14"
+KERNEL_BRANCH="14"
 KERNEL_DIR="$WORKDIR/GrapheneOSKernel"
 
 # Anykernel3
@@ -48,7 +48,7 @@ CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
 LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
-repo init -u $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
+repo init -u $KERNEL_GIT -b $KERNEL_BRANCH 
 repo sync -j$(nproc --all)
 git clone --depth=1 $KERNEL_GS -b $KERNEL_GS_BRANCH $KERNEL_DIR
 # git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
