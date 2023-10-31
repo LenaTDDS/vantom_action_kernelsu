@@ -46,7 +46,9 @@ CLANG_VERSION="$($ZYCLANG_DIR/clang --version | head -n 1)"
 LLD_VERSION="$($ZYCLANG_DIR/ld.lld --version | head -n 1)"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
-git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
+repo init -u $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
+repo sync -j$(nproc --all)
+# git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
