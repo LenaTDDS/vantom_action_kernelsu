@@ -11,21 +11,16 @@ ZYCLANG_DLINK="https://github.com/ZyCromerZ/Clang/releases/download/18.0.0-20231
 ZYCLANG_DIR="$WORKDIR/ZyClang/bin"
 
 # Kernel Source
-KERNEL_GIT="http://github.com/vantoman/kernel_xiaomi_sm6150.git"
-KERNEL_BRANCHE="13"
-KERNEL_DIR="$WORKDIR/VantomDynamicKernel"
+KERNEL_GIT="https://github.com/LenaTDDS/kernel_gs.git"
+KERNEL_BRANCHE="14"
+KERNEL_DIR="$WORKDIR/GrapheneOSKernel"
 
 # Anykernel3
-ANYKERNEL3_GIT="https://github.com/LenaTDDS/AnyKernel3.git"
+ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
 # Build
-DEVICES_CODE="davinci"
-DEVICE_DEFCONFIG="davinci_defconfig"
-DEVICE_DEFCONFIG_FILE="$KERNEL_DIR/arch/arm64/configs/$DEVICE_DEFCONFIG"
-IMAGE="$KERNEL_DIR/out/arch/arm64/boot/Image.gz"
-DTB="$KERNEL_DIR/out/arch/arm64/boot/dtb.img"
-DTBO="$KERNEL_DIR/out/arch/arm64/boot/dtbo.img"
+IMAGE="$KERNEL_DIR/out/mixed/dist/boot.img"
 
 export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
@@ -56,85 +51,38 @@ cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-            echo "CONFIG_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
-            echo "CONFIG_HAVE_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
-            echo "CONFIG_KPROBE_EVENTS=y" >> $DEVICE_DEFCONFIG_FILE
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
-# PATCH KERNELSU
-msg " • 🌸 Applying patches || "
-
-apply_patchs () {
-for patch_file in $WORKDIR/patchs/*.patch
-	do
-	patch -p1 < "$patch_file"
-done
-}
-apply_patchs
-
-sed -i "/CONFIG_LOCALVERSION=\"/s/.$/-KSU-$KERNELSU_VERSION\"/" $DEVICE_DEFCONFIG_FILE
-
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
-
-args="PATH=$ZYCLANG_DIR:$PATH \
-ARCH=arm64 \
-SUBARCH=arm64 \
-CROSS_COMPILE=aarch64-linux-gnu- \
-CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-CC=clang \
-NM=llvm-nm \
-CXX=clang++ \
-AR=llvm-ar \
-LD=ld.lld \
-STRIP=llvm-strip \
-OBJDUMP=llvm-objdump \
-OBJSIZE=llvm-size \
-READELF=llvm-readelf \
-HOSTAR=llvm-ar \
-HOSTLD=ld.lld \
-HOSTCC=clang \
-HOSTCXX=clang++ \
-LLVM=1 \
-LLVM_IAS=1"
-
-# LINUX KERNEL VERSION
-rm -rf out
-make O=out $args $DEVICE_DEFCONFIG
-KERNEL_VERSION=$(make O=out $args kernelversion | grep "4.14")
-msg " • 🌸 LINUX KERNEL VERSION : $KERNEL_VERSION 🌸 "
-make O=out $args -j"$(nproc --all)"
+BUILD_KERNEL=1 ./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd $WORKDIR
 git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCHE $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
 cp $IMAGE .
-cp $DTB $WORKDIR/Anykernel3/dtb
-cp $DTBO .
 
 # PACK FILE
 time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
 cairo_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
-ZIP_NAME="VantomKernel-$KERNEL_VERSION-KernelSU-$KERNELSU_VERSION.zip"
+ZIP_NAME="GrapheneOS-Kernel-KSU-$KERNELSU_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 
 cd $WORKDIR/out
 echo "
-### VantomDynamic KERNEL With/Without KERNELSU
+### GrapheneOS KERNEL With KERNELSU
 1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Moscow TIME
-2. **Device Code** : $DEVICES_CODE
-3. **LINUX Version** : $KERNEL_VERSION
-4. **KERNELSU Version**: $KERNELSU_VERSION
-5. **CLANG Version**: $CLANG_VERSION
-6. **LLD Version**: $LLD_VERSION
+2. **KERNELSU Version**: $KERNELSU_VERSION
+3. **CLANG Version**: $CLANG_VERSION
+4. **LLD Version**: $LLD_VERSION
 " > RELEASE.md
 echo "
-echo "VantomKernel-$KERNEL_VERSION" > RELEASETITLE.txt
+echo "GrapheneOS-Kernel-KSU" > RELEASETITLE.txt
 cat RELEASE.md
 cat RELEASETITLE.txt
 msg "• 🌸 Done! 🌸 "
