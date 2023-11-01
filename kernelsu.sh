@@ -15,7 +15,7 @@ ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
 KERNEL_DIR="$WORKDIR/private/gs-google"
-OUT_PATH="$KERNEL_DIR/out/mixed/dist"
+OUT_PATH="$WORKDIR/out/mixed/dist"
 
 export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
@@ -59,6 +59,7 @@ zip -r9 $ZIP_NAME *
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
 
 cd $WORKDIR/out
+echo "GrapheneOS-Kernel-KSU" > RELEASETITLE.txt
 echo "
 ### GrapheneOS KERNEL With KERNELSU
 1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Moscow TIME
@@ -66,8 +67,6 @@ echo "
 3. **CLANG Version**: $CLANG_VERSION
 4. **LLD Version**: $LLD_VERSION
 " > RELEASE.md
-echo "
-echo "GrapheneOS-Kernel-KSU" > RELEASETITLE.txt
 cat RELEASE.md
 cat RELEASETITLE.txt
 msg "• 🌸 Done! 🌸 "
