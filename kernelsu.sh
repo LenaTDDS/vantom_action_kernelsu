@@ -15,7 +15,8 @@ ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
 KERNEL_DIR="$WORKDIR/private/gs-google"
-OUT_PATH="$WORKDIR/out/mixed/dist"
+OUT_KERNEL_LZ4="$WORKDIR/out/mixed/dist/Image.lz4"
+OUT_KERNEL_RAW="$WORKDIR/out/mixed/dist/boot.img"
 
 export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
@@ -49,7 +50,7 @@ export BUILD_AOSP_KERNEL=1
 msg " • 🌸 Packing Kernel 🌸 "
 git clone --depth=1 $ANYKERNEL3_GIT -b $ANYKERNEL3_BRANCHE $WORKDIR/Anykernel3
 cd $WORKDIR/Anykernel3
-cp $OUT_PATH/* .
+cp $OUT_KERNEL_LZ4 $OUT_KERNEL_RAW .
 
 # PACK FILE
 time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
