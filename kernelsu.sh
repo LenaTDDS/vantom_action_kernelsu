@@ -28,12 +28,12 @@ msg() {
 cd $WORKDIR
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
+git config --global color.ui false
 repo init -u $KERNEL_GIT -b $KERNEL_BRANCH 
 repo sync -j$(nproc --all)
-# This is test
-ls -la
 
 msg " • 🌸 Patching KernelSU 🌸 "
+cd $WORKDIR/private/gs-google
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
@@ -41,7 +41,7 @@ msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
-export LTO=full 
+cd $WORKDIR
 export BUILD_AOSP_KERNEL=1 
 ./build_slider.sh
 
@@ -52,7 +52,6 @@ cp $IMAGE/* .
 
 # PACK FILE
 time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
-moscow_time=$(TZ='Europe/Moscow' date +%Y%m%d%H)
 ZIP_NAME="GrapheneOS-Kernel-KSU-$KERNELSU_VERSION.zip"
 find ./ * -exec touch -m -d "$time" {} \;
 zip -r9 $ZIP_NAME *
