@@ -7,8 +7,8 @@
 WORKDIR="$(pwd)"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/GrapheneOS/kernel_manifest-raviole.git"
-KERNEL_BRANCH="14"
+KERNEL_GIT="https://github.com/freak07/Kirisakura_Raviole.git"
+KERNEL_BRANCH="pantah-up1a.231005"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
