@@ -7,8 +7,8 @@
 WORKDIR="$(pwd)"
 
 # Kernel Source
-KERNEL_GIT="https://github.com/freak07/Kirisakura_Raviole.git"
-KERNEL_BRANCH="pantah-up1a.231005"
+KERNEL_GIT="https://github.com/opensourcefreak/FreakyKernel-raviole"
+KERNEL_BRANCH="Tiramisu-5.10"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
