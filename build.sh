@@ -6,13 +6,14 @@ msg() {
 }
 
 WORKDIR="$(pwd)"
+KERNEL_DIR="$WORKDIR/raviole-kernel"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
 mkdir -p raviole-kernel && cd raviole-kernel
-repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10
-#mv manifest.xml .repo/manifest.xml
-#repo init -m manifest.xml
-repo sync -j$(nproc --all)
+git clone --depth=1 https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10 $KERNEL_DIR
+# mv manifest.xml .repo/manifest.xml
+# repo init -m manifest.xml
+# repo sync -j$(nproc --all)
 
 msg " • 🌸 Patching KernelSU 🌸 "
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
