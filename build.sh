@@ -21,15 +21,17 @@ repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tira
 repo sync -j$(nproc --all)
 
 msg " • 🌸 Patching KernelSU 🌸 "
+cd $WORKDIR/private/gs-google
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 msg " • 🌸 Started Compilation 🌸 "
+cd $WORKDIR
 export LTO=full
 export BUILD_AOSP_KERNEL=1
-bash ./build_slider.sh
+./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd out/mixed/dist
