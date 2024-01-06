@@ -9,7 +9,7 @@ WORKDIR="$(pwd)"
 # Kernel Source
 KERNEL_GIT="https://github.com/opensourcefreak/FreakyKernel-raviole"
 KERNEL_BRANCH="Tiramisu-5.10"
-KERNEL_DIR="$WORKDIR/ravioleKernel"
+KERNEL_DIR="$WORKDIR/FreakyKernel-raviole"
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
@@ -32,7 +32,7 @@ cd $WORKDIR
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
 git config --global color.ui false
-git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE $KERNEL_DIR
+git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
