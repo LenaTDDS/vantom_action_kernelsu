@@ -14,7 +14,7 @@ KERNEL_BRANCH="Tiramisu-5.10"
 ANYKERNEL3_GIT="https://github.com/osm0sis/AnyKernel3.git"
 ANYKERNEL3_BRANCHE="master"
 
-KERNEL_DIR="$WORKDIR/private/gs-google"
+
 OUT_KERNEL_LZ4="$WORKDIR/out/mixed/dist/Image.lz4"
 OUT_KERNEL_RAW="$WORKDIR/out/mixed/dist/boot.img"
 
@@ -35,7 +35,6 @@ repo init -u $KERNEL_GIT -b $KERNEL_BRANCH
 repo sync -j$(nproc --all)
 
 msg " • 🌸 Patching KernelSU 🌸 "
-cd $WORKDIR/private/gs-google
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
