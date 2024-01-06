@@ -30,7 +30,7 @@ msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 msg " • 🌸 Started Compilation 🌸 "
 export LTO=full
 export BUILD_CONFIG=build.config.slider
-./build.sh
+./build_mixed.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd out/mixed/dist
