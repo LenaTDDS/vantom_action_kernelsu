@@ -17,7 +17,12 @@ export KBUILD_BUILD_HOST=GitHubCI
 
 mkdir -p raviole-kernel && cd raviole-kernel
 git config --global color.ui false
-repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10
+cat <<EOT >> .repo/manifest.xml
+<manifest>
+    <project name="LineageOS/android_kernel_google_gs201" path="kernel/google/gs201/private/gs-google" remote="github" revision="lineage-21"/>
+</manifest>
+EOT
+# repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10
 repo sync -j$(nproc --all)
 
 msg " • 🌸 Patching KernelSU 🌸 "
