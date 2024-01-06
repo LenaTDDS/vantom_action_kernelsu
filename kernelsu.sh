@@ -43,7 +43,7 @@ msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 # BUILD KERNEL
 msg " • 🌸 Started Compilation 🌸 "
-cd $WORKDIR
+cd $KERNEL_DIR
 export BUILD_AOSP_KERNEL=1 
 ./build_slider.sh
 
