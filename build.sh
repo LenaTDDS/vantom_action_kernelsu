@@ -16,28 +16,21 @@ export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
 
 mkdir -p raviole-kernel && cd raviole-kernel
-git config --global color.ui false
-cat <<EOT >> .repo/manifest.xml
-<manifest>
-    <project name="opensourcefreak/FreakyKernel-raviole" path="private/gs-google" remote="github" revision="Tiramisu-5.10"/>
-</manifest>
-EOT
-repo init -m manifest.xml
-# repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10
-repo sync -j$(nproc --all)
+#repo init -u https://github.com/LenaTDDS/kernel_manifest-raviole.git -b FreakyKernel
+#repo sync -j$(nproc --all)
+git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCH $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
-cd $WORKDIR/private/gs-google
+cd $KERNEL_DIR
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 msg " • 🌸 Started Compilation 🌸 "
-cd $WORKDIR
 export LTO=full
-export BUILD_AOSP_KERNEL=1
-./build_slider.sh
+export BUILD_CONFIG=build.config.slider
+./build.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd out/mixed/dist
