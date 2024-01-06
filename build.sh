@@ -9,7 +9,9 @@ WORKDIR="$(pwd)"
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
 mkdir -p raviole-kernel && cd raviole-kernel
-repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole -b Tiramisu-5.10
+# repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole -b Tiramisu-5.10
+mv manifest.xml .repo/manifest.xml
+repo init -m manifest.xml
 repo sync -j$(nproc --all)
 
 msg " • 🌸 Patching KernelSU 🌸 "
