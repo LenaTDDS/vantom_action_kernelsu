@@ -19,7 +19,7 @@ mkdir -p raviole-kernel && cd raviole-kernel
 git config --global color.ui false
 cat <<EOT >> .repo/manifest.xml
 <manifest>
-    <project name="opensourcefreak/FreakyKernel-raviole" path="android/kernel/raviole" remote="github" revision="Tiramisu-5.10"/>
+    <project name="opensourcefreak/FreakyKernel-raviole" path="private/gs-google" remote="github" revision="Tiramisu-5.10"/>
 </manifest>
 EOT
 repo init -m manifest.xml
