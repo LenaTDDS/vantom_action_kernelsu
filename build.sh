@@ -22,6 +22,7 @@ cat <<EOT >> .repo/manifest.xml
     <project name="opensourcefreak/FreakyKernel-raviole" path="android/kernel/raviole" remote="github" revision="Tiramisu-5.10"/>
 </manifest>
 EOT
+repo init -m manifest.xml
 # repo init -u https://github.com/opensourcefreak/FreakyKernel-raviole.git -b Tiramisu-5.10
 repo sync -j$(nproc --all)
 
