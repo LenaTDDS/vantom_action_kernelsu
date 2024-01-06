@@ -32,7 +32,7 @@ cd $WORKDIR
 
 msg " • 🌸 Cloning Kernel Source 🌸 "
 git config --global color.ui false
-git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCHE
+git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCH $KERNEL_DIR
 cd $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
