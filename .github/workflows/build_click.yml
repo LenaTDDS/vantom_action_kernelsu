@@ -21,6 +21,11 @@ jobs:
           cd $GITHUB_WORKSPACE
           sudo bash env.sh
 
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
+          
       - name: Start SSH via tmate
         uses: P3TERX/ssh2actions@main
         # Send connection info to Telegram (optional)
