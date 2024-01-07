@@ -16,9 +16,9 @@ export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
 
 mkdir -p raviole-kernel && cd raviole-kernel
-#repo init -u https://github.com/LenaTDDS/kernel_manifest-raviole.git -b FreakyKernel
-#repo sync -j$(nproc --all)
-git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCH $KERNEL_DIR
+repo init -u https://github.com/LenaTDDS/kernel_manifest-raviole.git -b FreakyKernel-test
+repo sync -j$(nproc --all)
+#git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCH $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
 cd $KERNEL_DIR
