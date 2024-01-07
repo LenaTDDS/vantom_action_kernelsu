@@ -36,14 +36,14 @@ time=$(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S")
 ZIP_NAME="ravioleKernel-KernelSU-$KERNELSU_VERSION.zip"
 zip $ZIP_NAME boot.img dtbo.img vendor_boot.img vendor_dlkm.img
 mkdir -p $WORKDIR/out && cp *.zip $WORKDIR/out
+
 cd $WORKDIR/out
+echo "FreakyKernel-KSU" > RELEASETITLE.txt
 echo "
-### raviole kernel with KernelSU
+### FreakyKernel KERNEL With KERNELSU
 1. **Time** : $(TZ='Europe/Moscow' date +"%Y-%m-%d %H:%M:%S") # Moscow TIME
 2. **KERNELSU Version**: $KERNELSU_VERSION
 " > RELEASE.md
-echo "
-echo "ravioleKernel-$KERNEL_VERSION" > RELEASETITLE.txt
 cat RELEASE.md
 cat RELEASETITLE.txt
 msg "• 🌸 Done! 🌸 "
