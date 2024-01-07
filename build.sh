@@ -14,23 +14,21 @@ KERNEL_DIR="$WORKDIR/raviole-kernel"
 msg " • 🌸 Cloning Kernel Source 🌸 "
 export KBUILD_BUILD_USER=LenaTDDS
 export KBUILD_BUILD_HOST=GitHubCI
-
-mkdir -p raviole-kernel && cd raviole-kernel
 repo init -u https://github.com/LenaTDDS/kernel_manifest-raviole.git -b FreakyKernel-test
 repo sync -j$(nproc --all)
-#git clone --depth=1 $KERNEL_GIT -b $KERNEL_BRANCH $KERNEL_DIR
 
 msg " • 🌸 Patching KernelSU 🌸 "
-cd $KERNEL_DIR
+cd $WORKDIR/private/gs-google
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 KSU_GIT_VERSION=$(cd KernelSU && git rev-list --count HEAD)
 KERNELSU_VERSION=$(($KSU_GIT_VERSION + 10000 + 200))
 msg " • 🌸 KernelSU version: $KERNELSU_VERSION 🌸 "
 
 msg " • 🌸 Started Compilation 🌸 "
+cd $WORKDIR
 export LTO=full
-export BUILD_CONFIG=build.config.slider
-./build_mixed.sh
+export BUILD_AOSP_KERNEL=1 
+./build_slider.sh
 
 msg " • 🌸 Packing Kernel 🌸 "
 cd out/mixed/dist
